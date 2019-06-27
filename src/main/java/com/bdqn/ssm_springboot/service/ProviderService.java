@@ -30,4 +30,9 @@ public class ProviderService {
         Provider provider = providerMapper.selectByPrimaryKey(id);
         return provider;
     }
+
+    public int updateProvider(Provider provider){
+        int i = providerMapper.updateByPrimaryKeySelective(provider);
+        return i;
+    }
 }

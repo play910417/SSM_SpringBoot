@@ -35,4 +35,11 @@ public class ProviderController {
         model.addAttribute("provider",provider);
         return "providermodify";
     }
+
+    @RequestMapping(value = "/providerModify")
+    public String providerModify(Model model,Provider provider){
+        System.out.println(provider.getId());
+        System.out.println("ceshi");
+        return "redirect:providerlist";
+    }
 }
