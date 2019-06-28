@@ -64,7 +64,8 @@ $(function(){
 
 	$(".deleteProvider").on("click",function(){
 		providerObj = $(this);
-		changeDLGContent("你确定要删除供应商【"+providerObj.attr("proname")+"】吗？");
+		alert(providerObj.attr("name"));
+		changeDLGContent("你确定要删除供应商【"+providerObj.attr("name")+"】吗？");
 		openYesOrNoDLG();
 	});
 	

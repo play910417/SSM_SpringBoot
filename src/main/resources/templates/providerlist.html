@@ -50,7 +50,7 @@
                 <input name="proName" type="text" value="" th:value="${provider.proName}">
 
                 <input value="查 询" type="submit" id="searchbutton">
-                <a href="provideradd.html">添加供应商</a>
+                <a href="provideradd.html" th:href="@{/provideradd}">添加供应商</a>
             </form>
         </div>
         <!--供应商操作表格-->
@@ -81,7 +81,7 @@
                     <span th:text="${provider.proFax}">${provider.proFax}</span>
                 </td>
                 <td>
-					<span th:text="${#dates.format(provider.creationDate,'yyyy-MM-dd hh:mm:ss')}">
+					<span th:text="${#dates.format(provider.creationDate,'yyyy-MM-dd HH:mm:ss')}">
 					${provider.creationDate}
 					</span>
                 </td>
@@ -99,7 +99,7 @@
                     </span>
                     <span>
                         <a class="deleteProvider" href="#">
-                        <img src="../images/schu.png" alt="删除" title="删除"/>
+                        <img src="../images/schu.png" alt="删除" title="删除" th:name="${provider.proName}"/>
                     </a>
                     </span>
                 </td>
