@@ -1,9 +1,11 @@
 package com.bdqn.ssm_springboot.dao;
 
 import com.bdqn.ssm_springboot.pojo.Bill;
+import com.bdqn.ssm_springboot.pojo.BillCustom;
 import com.bdqn.ssm_springboot.pojo.BillExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface BillMapper {
     long countByExample(BillExample example);
@@ -19,6 +21,8 @@ public interface BillMapper {
     List<Bill> selectByExample(BillExample example);
 
     Bill selectByPrimaryKey(Long id);
+
+    List<BillCustom> selectByBill(Bill bill);
 
     int updateByExampleSelective(@Param("record") Bill record, @Param("example") BillExample example);
 

@@ -17,11 +17,13 @@ public class ProviderService {
     public List<Provider> selectProviderList(Provider provider) {
         ProviderExample example = new ProviderExample();
         ProviderExample.Criteria criteria = example.createCriteria();
-        if (provider.getProCode() != null) {
-            criteria.andProCodeLike("%" + provider.getProCode() + "%");
-        }
-        if (provider.getProName() != null) {
-            criteria.andProNameLike("%" + provider.getProName() + "%");
+        if(provider!=null){
+            if (provider.getProCode() != null) {
+                criteria.andProCodeLike("%" + provider.getProCode() + "%");
+            }
+            if (provider.getProName() != null) {
+                criteria.andProNameLike("%" + provider.getProName() + "%");
+            }
         }
         List<Provider> list = providerMapper.selectByExample(example);
         return list;
