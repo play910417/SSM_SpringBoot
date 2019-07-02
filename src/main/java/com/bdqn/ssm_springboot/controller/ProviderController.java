@@ -1,10 +1,13 @@
 package com.bdqn.ssm_springboot.controller;
 
 import com.bdqn.ssm_springboot.pojo.Provider;
+import com.bdqn.ssm_springboot.service.BillService;
 import com.bdqn.ssm_springboot.service.ProviderService;
+import com.bdqn.ssm_springboot.vo.Vo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.List;
 public class ProviderController {
     @Resource
     private ProviderService providerService;
+    @Resource
+    private BillService billService;
 
     @RequestMapping(value = "/providerlist")
     public String providerList(Model model, Provider provider){
@@ -47,9 +52,28 @@ public class ProviderController {
     }
 
     @RequestMapping(value = "/providerdelete")
-    public String providerDelete(Model model,Long id){
-        int i = providerService.deleteProvider(id);
-        return "forward:providerlist";
+    @ResponseBody
+    public Object providerDelete(Model model, Long id, Vo vo){
+        Provider provider = providerService.selectProviderById(id);
+        //判断供应商是否存在，若不存在给出相应提示
+        if(provider==null){
+            vo.setMessage("notexist");
+        }else{
+            long count = billService.selectBillCountByPro(id);
+            //判断供应商下是否有订单
+            if(count==0){
+                int i = providerService.deleteProvider(id);
+                //判断删除结果
+                if(i==1){
+                    vo.setMessage("true");
+                }else{
+                    vo.setMessage("false");
+                }
+            }else{
+                vo.setNum(count);
+            }
+        }
+        return vo;
     }
 
     @RequestMapping(value = "/provideradd")
@@ -62,4 +86,5 @@ public class ProviderController {
         int i = providerService.insertProvider(provider);
         return "redirect:providerlist";
     }
+
 }
